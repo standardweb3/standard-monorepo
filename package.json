@@ -1,0 +1,27 @@
+{
+  "name": "standard-apps-monorepo",
+  "description": "A monorepo with standard apps and packages",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "clean": "turbo clean",
+    "prettier": "prettier --write --ignore-path .gitignore ."
+  },
+  "devDependencies": {
+    "@turbo/gen": "^2.3.3",
+    "eslint": "^9.16.0",
+    "eslint-config-custom": "*",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "syncpack": "^13.0.0",
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "yarn@1.22.15",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
