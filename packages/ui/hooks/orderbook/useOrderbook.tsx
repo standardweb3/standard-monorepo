@@ -1,9 +1,9 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { fetchOrderbook } from '../../queries';
+import { fetchOrderbook } from 'queries';
 import { PonderLinks, PonderWssLinks } from '../../enums';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import type { Orderbook } from '../../queries/Orderbook/BaseQuoteOrderbook';
+import type { Orderbook } from 'types';
 import io, { type Socket } from 'socket.io-client';
 
 export type TickEvent = {

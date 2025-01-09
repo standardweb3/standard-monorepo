@@ -2,36 +2,10 @@
 import { getAddress } from 'viem';
 import dotenv from 'dotenv';
 import axios from 'axios';
-import type { Token } from 'queries/Tokens/AllTokens';
+import type { AccountTradeHistory } from 'types';
 
 dotenv.config();
 
-export type TradeHistory = {
-  id: string;
-  orderId: number;
-  /// order type (bid(buy) if 1, ask(sell) if 0)
-  isBid: number;
-  base: Token;
-  quote: Token;
-  /// pair string
-  pair: string;
-  orderbook: string;
-  price: number;
-  amount: number;
-  timestamp: number;
-  maker: string;
-  taker: string;
-  account: string;
-  txHash: string;
-};
-
-export type AccountTradeHistory = {
-  trades: TradeHistory[];
-  totalCount: number;
-  totalPages: number;
-  pageSize: number;
-  lastUpdated: number;
-};
 
 export const fetchUserAccountTradeHistoryPaginatedWithLimit = async (
   apiUrl: string,

@@ -1,6 +1,6 @@
 "use server";
 import axios from 'axios';
-import type { Token } from './AllTokens';
+import type { TokenData } from 'types';
 
 export const fetchTopGainerTokens = async (
   apiUrl: string,
@@ -13,7 +13,7 @@ export const fetchTopGainerTokens = async (
 
   const data = response.data;
 
-  return data.tokens as Token[];
+  return data.tokens as TokenData;
 };
 
 export default fetchTopGainerTokens;

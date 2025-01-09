@@ -1,19 +1,29 @@
-// @ts-nocheck
 'use client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { GraphQLClient } from 'graphql-request';
-import { PonderLinks } from 'enums';
+import { PonderLinks, PonderWssLinks } from 'enums';
 import { useState, useEffect, useMemo } from 'react';
-import fetchUserAccountTradeHistoryPaginatedWithLimit from 'queries/Trades/UserAccountTradeHistoryPaginatedWithLimit';
+import { fetchUserAccountTradeHistoryPaginatedWithLimit } from 'queries';
 import type {
   TradeHistory,
   AccountTradeHistory,
-} from 'queries/TradeHistory/UserAccountTradeHistoryPaginatedWithLimit';
+} from 'types';
 import io from 'socket.io-client';
-import { PonderWssLinks } from '@/enums';
-import type { Token } from 'queries/Tokens/AllTokens';
+import type { Token } from 'types';
 
 export type UpdateTradeHistoryEvent = {
+  id: string;
+  orderId: number;
+  base: string;
+  quote: string;
+  isBid: number;
+  orderbook: string;
+  price: number;
+  amount: number;
+  taker: string;
+  maker: string;
+  account: string;
+  timestamp: number;
+  txHash: string;
 };
 
 export const useAccountTradeHistoryPaginated = (
@@ -34,11 +44,17 @@ export const useAccountTradeHistoryPaginated = (
     [address, page],
   );
 
-  const [localData, setLocalData] = useState({});
+  const [localData, setLocalData] = useState({
+    tradeHistory: [],
+    totalCount: 0,
+    totalPages: 0,
+    pageSize: 0,
+    lastUpdated: Date.now(),
+  } as AccountTradeHistory);
 
   const fetchWithPage = async (address: string, page: number) => {
     const tokens: Token[] =
-      queryClient.getQueryData([`tokenlist-${networkName}`]) ?? tokenlist;
+      queryClient.getQueryData([`allTokens-${networkName}`]) ?? tokenlist;
     const data = await fetchUserAccountTradeHistoryPaginatedWithLimit(
       address,
       apiUrl,
@@ -55,8 +71,11 @@ export const useAccountTradeHistoryPaginated = (
     queryFn: () => fetchWithPage(address, page),
     placeholderData: () => ({
       tradeHistory: [],
+      totalCount: 0,
       totalPages: 0,
       totalTradeHistory: 0,
+      pageSize: 0,
+      lastUpdated: Date.now(),
     }),
   });
 
@@ -66,15 +85,21 @@ export const useAccountTradeHistoryPaginated = (
 
     const handleAdditionalData = (
       data: AccountTradeHistory,
-      addition: TradeHistory,
+      update: UpdateTradeHistoryEvent,
     ) => {
       const tokens: Token[] = tokenlist;
-      addition.base = tokens?.find(
-        (token: Token) => token.id === addition.base,
-      );
-      addition.quote = tokens?.find(
-        (token: Token) => token.id === addition.quote,
-      );
+      const base = tokens?.find(
+        (token: Token) => token.id === update.base,
+      ) as Token;
+      const quote = tokens?.find(
+        (token: Token) => token.id === update.quote,
+      ) as Token;
+      const addition = {
+        ...update,
+        base,
+        quote,
+        pair: `${base?.symbol}/${quote?.symbol}`,
+      };
       const index = data.tradeHistory?.findIndex(
         (tradeHistory: TradeHistory) => tradeHistory.id === addition.id,
       );
@@ -83,14 +108,14 @@ export const useAccountTradeHistoryPaginated = (
       } else {
         if (addition.maker === address || addition.taker === address) {
           data.tradeHistory?.push(addition);
-          data.totalTradeHistory += 1;
-          data.totalPages = Math.ceil(data.totalTradeHistory / pageSize);
+          data.totalCount += 1;
+          data.totalPages = Math.ceil(data.totalCount / pageSize);
         }
       }
       return data;
     };
 
-    const updateTradeHistory = (key: string, newData: TradeHistory) => {
+    const updateTradeHistory = (key: string, newData: UpdateTradeHistoryEvent) => {
       queryClient.setQueryData(queryKey, (oldData: AccountTradeHistory) => {
         const data = oldData || {
           tradeHistory: [],
@@ -125,7 +150,7 @@ export const useAccountTradeHistoryPaginated = (
       transports: ['websocket'],
     });
 
-    socket.on('tradeHistory', tradeHistory => {
+    socket.on('tradeHistory', (tradeHistory: UpdateTradeHistoryEvent) => {
       const accountTradeHistory = localData;
       // find the day in the array and replace it
       updateTradeHistory('tradeHistory', tradeHistory);
@@ -151,14 +176,14 @@ export const useAccountTradeHistoryPaginated = (
       page,
       setPage,
       totalPages: previousData
-        ? (previousData as UserAccountTradeHistory).totalPages
+        ? (previousData as AccountTradeHistory).totalPages
         : 0,
       totalTradeHistory: previousData
-        ? (previousData as UserAccountTradeHistory).totalCount
+        ? (previousData as AccountTradeHistory).totalCount
         : 0,
       pageSize,
       data: previousData
-        ? (previousData as UserAccountTradeHistory).tradeHistory
+        ? (previousData as AccountTradeHistory).tradeHistory
         : [],
       prevData: previousData,
       error,

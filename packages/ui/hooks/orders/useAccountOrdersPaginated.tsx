@@ -7,8 +7,8 @@ import io from 'socket.io-client';
 import type {
   AccountOrders,
   Order,
-} from '../../queries/Orders/UserAccountOrdersPaginatedWithLimit';
-import type { Token } from 'queries/Tokens/AllTokens';
+  Token
+} from 'types';
 
 export type DeleteOrderEvent = {
   id: string;
@@ -46,7 +46,7 @@ export const useAccountOrdersPaginated = (
   networkName: string,
   tokenlist: Token[] | undefined,
   address: string,
-  pageSize: number,
+  pageSize: number
 ) => {
   // GraphQL setup
   const apiUrl: string = PonderLinks[networkName];
@@ -58,8 +58,8 @@ export const useAccountOrdersPaginated = (
     const data = await fetchUserAccountOrdersPaginatedWithLimit(
       address,
       apiUrl,
-      page,
       pageSize,
+      page,
     );
     return data ?? {
       orders: [],

@@ -1,34 +1,6 @@
 "use server";
 import axios from 'axios';
-
-export type Token = {
-  id: string;
-  name: string;
-  symbol: string;
-  ticker: string;
-  totalSupply: number;
-  logoURI: string;
-  decimals: number;
-  price: number;
-  cpPrice: number;
-  cgId: string;
-  cmcId: string;
-  ath: number;
-  atl: number;
-  listingDate: number;
-  dayDifference: number;
-  dayDifferencePercentage: number;
-  dayTvl: number;
-  dayTvlUSD: number;
-  dayVolume: number;
-  dayVolumeUSD: number;
-  creator: string | null;
-  totalMinBuckets: number;
-  totalHourBuckets: number;
-  totalDayBuckets: number;
-  totalWeekBuckets: number;
-  totalMonthBuckets: number;
-}
+import type { TokenData } from 'types';
 
 export const fetchAllTokens = async (
   apiUrl: string,
@@ -41,7 +13,7 @@ export const fetchAllTokens = async (
 
   const data = response.data;
 
-  return data.tokens as Token[];
+  return data.tokens as TokenData;
 };
 
 export default fetchAllTokens;

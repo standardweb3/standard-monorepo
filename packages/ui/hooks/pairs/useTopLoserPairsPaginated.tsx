@@ -1,45 +1,60 @@
 'use client';
 import { PonderLinks } from '../../enums';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import fetchTopLoserPairs from '../../queries/Pairs/TopLoser';
-import type { Pair } from '../../queries/Pairs/AllPairs';
+import { fetchTopLoserPairs } from 'queries';
+import { useState } from 'react';
+import type { PairData } from 'types';
 
-export const useTopLoserPairsPaginated = (network: string, limit: number, page: number) => {
+export const useTopLoserPairsPaginated = (network: string, pageSize: number) => {
   const apiUrl: string = PonderLinks[network];
   const queryKey = [`allPairs-top-loser-${network}`];
   const queryClient = useQueryClient();
 
-  const fetchTokens = async () => {
+  const [page, setPage] = useState<number>(1);
+
+  const fetchWithPage = async (page: number) => {
     try {
-      const pairs: Pair[] = await fetchTopLoserPairs(apiUrl, limit, page);
+      const pairs: PairData = await fetchTopLoserPairs(apiUrl, pageSize, page);
       return pairs;
     } catch (error) {
       console.error('pair fetching error', error);
     }
   };
 
-  const { data, status, error, isSuccess } = useQuery({
+  const { data, status, error, isSuccess, refetch } = useQuery({
     queryKey: queryKey,
-    queryFn: () => fetchTokens(),
+    queryFn: () => fetchWithPage(page),
   });
 
   const previousData = queryClient.getQueryData(queryKey);
 
   if (isSuccess && data) {
     return {
-      data: previousData ?? [],
-      isSuccess,
-      status,
+      page,
+      setPage,
+      totalPages: data?.totalPages ?? 0,
+      totalPairs: data?.totalCount ?? 0,
+      pageSize,
+      data: data?.pairs ?? [],
+      prevData: previousData,
       error,
+      status,
       queryKey,
+      refetch,
     };
   }
 
   return {
-    data,
-    isSuccess,
-    status,
+    page,
+    setPage,
+    totalPages: 0,
+    totalPairs: 0,
+    pageSize,
+    data: [],
+    prevData: previousData,
     error,
+    status,
     queryKey,
+    refetch,
   };
 };

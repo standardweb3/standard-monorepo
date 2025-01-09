@@ -2,7 +2,7 @@
 
 import { getAddress } from "viem";
 import axios from 'axios';
-import type { Pair } from "./AllPairs";
+import type { Pair } from "types";
 
 
 export const fetchPairInfo = async (

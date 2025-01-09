@@ -2,26 +2,9 @@
 import { getAddress } from "viem";
 import dotenv from 'dotenv';
 import axios from 'axios';
+import type { Orderbook } from 'types';
 
 dotenv.config();
-
-export type Tick = {
-  id: string;
-  orderbook: string;
-  price: number;
-  amount: number;
-  count: number;
-};
-
-export type Orderbook = {
-  orderbook: string;
-  mktPrice: number;
-  bidHead: number;
-  askHead: number;
-  bids: Tick[];
-  asks: Tick[];
-  lastUpdated: number;
-};
 
 export const fetchOrderbook = async (
   apiUrl: string,

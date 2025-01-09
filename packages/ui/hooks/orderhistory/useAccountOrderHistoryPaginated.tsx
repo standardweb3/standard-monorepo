@@ -1,13 +1,11 @@
 // @ts-nocheck
 'use client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { GraphQLClient } from 'graphql-request';
 import { PonderLinks } from '@/enums';
 import { useState } from 'react';
-import fetchUserAccountOrderHistoryPaginatedWithLimit from '@/queries/Orders/UserAccountOrderHistoryPaginatedWithLimit';
-import type { Token } from 'queries/Tokens/AllTokens';
-import type { Order } from 'queries/Orders/UserAccountOrderHistoryPaginatedWithLimit';
-import type { AccountOrderHistory } from 'queries/OrderHistory/UserAccountOrderHistoryPaginatedWithLimit';
+import { fetchUserAccountOrderHistoryPaginatedWithLimit } from 'queries';
+
+import type { AccountOrderHistory, Token, Order } from 'types';
 
 export const useAccountOrderHistoryPaginated = (
   networkName: string,
@@ -15,10 +13,8 @@ export const useAccountOrderHistoryPaginated = (
   address: string,
   pageSize: number,
 ) => {
-  // GraphQL setup
   const apiUrl: string = PonderLinks[networkName];
-  const client = new GraphQLClient(apiUrl);
-
+  
   const [page, setPage] = useState(1);
 
   const queryClient = useQueryClient();
@@ -28,24 +24,25 @@ export const useAccountOrderHistoryPaginated = (
   const fetchWithPage = async (
     address: string,
     page: number,
-    client: GraphQLClient,
   ) => {
-    const tokens: Token[] = queryClient.getQueryData([
-      `allTokens-${networkName}`,
-    ]) ?? tokenlist;
-    const data: AccountOrderHistory = await fetchUserAccountOrderHistoryPaginatedWithLimit(
-      address,
-      tokens,
-      page,
-      pageSize,
+    const tokens: Token[] =
+      queryClient.getQueryData([`allTokens-${networkName}`]) ?? tokenlist;
+    const data: AccountOrderHistory =
+      await fetchUserAccountOrderHistoryPaginatedWithLimit(
+        address,
+        tokens,
+        page,
+        pageSize,
+      );
+    return (
+      data ?? {
+        orderHistory: [],
+        totalCount: 0,
+        totalPages: 0,
+        pageSize: 0,
+        lastUpdated: 0,
+      }
     );
-    return data ?? {
-      orderHistory: [],
-      totalCount: 0,
-      totalPages: 0,
-      pageSize: 0,
-      lastUpdated: 0,
-    };
   };
 
   const { data, error, status, refetch } = useQuery({

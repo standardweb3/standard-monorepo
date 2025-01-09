@@ -1,77 +1,101 @@
-"use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { fetchRecentTradesPaginated } from "@/queries";
-import { GraphQLClient } from "graphql-request";
-import { PonderLinks, PonderWssLinks } from "@/enums";
-import { io } from "socket.io-client";
+'use client';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { fetchRecentPairTradesPaginated } from 'queries';
+import { PonderLinks, PonderWssLinks } from 'enums';
+import { io } from 'socket.io-client';
+import type { Token, TradesData } from 'types';
 
-interface RecentTradeItem {
+export type UpdateTradeEvent = {
+  id: string;
+  orderId: number;
+  base: string;
+  quote: string;
+  pair: string;
+  orderbook: string;
+  isBid: number;
+  price: number;
   baseAmount: number;
   quoteAmount: number;
-  base: any;
-  id: string;
-  isBid: boolean;
-  maker: string;
-  price: number;
-  quote: any;
-  taker: string;
   timestamp: number;
+  taker: string;
+  maker: string;
   txHash: string;
-}
-
-interface RecentTradeDataPaginated {
-  trades: RecentTradeItem[];
-  lastUpdated: number;
-}
+};
 
 export const useRecentPairTradePaginated = (
   networkName: string,
-  base: { address: string },
-  quote: { address: string }
+  base: Token,
+  quote: Token,
+  pageSize: number,
 ) => {
-  const apiUrl: string = PonderLinks[networkName];
-  const client = useMemo(() => new GraphQLClient(apiUrl), [apiUrl]);
+  const apiUrl = useMemo(() => PonderLinks[networkName], [networkName]);
   const queryClient = useQueryClient();
+  const [page, setPage] = useState<number>(1);
 
-  const queryKey = useMemo(() => 
-    [`recent-trade-${base.address}-${quote.address}`], 
-    [base.address, quote.address]
+  const queryKey = useMemo(
+    () => [`recent-trade-${base.id}-${quote.id}`],
+    [base.id, quote.id],
   );
 
-  const [localData, setLocalData] = useState<RecentTradeDataPaginated>({ trades: [], lastUpdated: 0 });
+  const [localData, setLocalData] = useState<TradesData>({
+    trades: [],
+    totalCount: 0,
+    totalPages: 0,
+    pageSize: 0,
+    lastUpdated: Date.now(),
+  });
 
-  const fetchWithCursor = useCallback(async () => {
-    const data = await fetchRecentTradesPaginated(base, quote, client);
+  const fetchWithPage = useCallback(async () => {
+    const data = await fetchRecentPairTradesPaginated(
+      apiUrl,
+      base.id,
+      quote.id,
+      pageSize,
+      page,
+    );
     setLocalData(data);
     return data;
-  }, [base, quote, client]);
+  }, [base, quote, page, apiUrl, pageSize]);
 
   const { data, error, status, refetch } = useQuery({
     queryKey,
-    queryFn: fetchWithCursor,
-    enabled: !!base.address && !!quote.address,
+    queryFn: fetchWithPage,
+    enabled: !!base.id && !!quote.id,
   });
 
   useEffect(() => {
     const SOCKET_SERVER_URL = `${PonderWssLinks[networkName]}`;
 
-    const handleAdditionalData = (data: RecentTradeDataPaginated, addition: RecentTradeItem) => {
-      const index = data.trades.findIndex(item => item.id === addition.id);
+    const handleAdditionalData = (
+      data: TradesData,
+      update: UpdateTradeEvent,
+    ) => {
+      const index = data.trades.findIndex(item => item.id === update.id);
+      const addition = {
+        ...update,
+        base,
+        quote,
+      };
       if (index > -1) {
         data.trades[index] = addition;
-      } else if (addition.base === base.address && addition.quote === quote.address) {
-        data.trades.push(addition);
-        data.trades.sort((a, b) => b.timestamp - a.timestamp);
+      } else {
+        if (
+          addition.base.id === update.base &&
+          addition.quote.id === update.quote
+        ) {
+          data.trades.push(addition);
+          data.trades.sort((a, b) => b.timestamp - a.timestamp);
+        }
       }
       return data;
     };
 
     const socket = io(SOCKET_SERVER_URL, {
-      transports: ['websocket']
+      transports: ['websocket'],
     });
 
-    socket.on("trade", (trade) => {
+    socket.on('trade', trade => {
       setLocalData(prevData => {
         const updated = handleAdditionalData({ ...prevData }, trade);
         updated.lastUpdated = Date.now();
@@ -83,14 +107,14 @@ export const useRecentPairTradePaginated = (
     return () => {
       socket.disconnect();
     };
-  }, [networkName, base.address, quote.address, queryClient, queryKey]);
-
-  useEffect(() => {
-    // Refetch data when base or quote address changes
-    refetch();
-  }, [base.address, quote.address, refetch]);
+  }, [networkName, base, quote, queryClient, queryKey]);
 
   return {
+    page,
+    setPage,
+    totalPages: localData.totalPages,
+    totalTrades: localData.totalCount,
+    pageSize,
     data: localData.trades,
     error,
     status,

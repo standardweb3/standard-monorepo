@@ -1,6 +1,6 @@
 'use server';
 import axios from 'axios';
-import type { Pair } from './AllPairs';
+import type { PairData } from 'types';
 
 export const fetchTopLoserPairs = async (
   apiUrl: string,
@@ -16,7 +16,7 @@ export const fetchTopLoserPairs = async (
 
   const data = response.data;
 
-  return data.pairs as Pair[];
+  return data.pairs as PairData;
 };
 
 export default fetchTopLoserPairs;

@@ -1,9 +1,9 @@
 "use server";
 import { getAddress } from "viem";
 import axios from 'axios';
-import type { Trade } from "./RecentOverallTradesPaginatedWithLimit";
+import type { TradesData } from "types";
 
-export const fetchRecentOverallTradesPaginated = async (
+export const fetchRecentPairTradesPaginated = async (
   apiUrl: string,
   base: string,
   quote: string,
@@ -24,7 +24,10 @@ export const fetchRecentOverallTradesPaginated = async (
 
   const data = response.data;
 
-  return data.trades as Trade[];
+  return {
+    ...data,
+    lastUpdated: Date.now(),
+  } as TradesData;
 };
 
-export default fetchRecentOverallTradesPaginated;
+export default fetchRecentPairTradesPaginated;
