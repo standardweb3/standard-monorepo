@@ -1,0 +1,1 @@
+export {useAccountTradeHistoryPaginated} from './useAccountTradeHistoryPaginated';
