@@ -8,6 +8,8 @@
     "paths": {
       "@ui/*": ["packages/ui/*"],
       "@ui/components/ui*": ["./components/ui*"]
-    }
+    },
+    "outDir": "dist",
+    "resolveJsonModule": true
   }
 }

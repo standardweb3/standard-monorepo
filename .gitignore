@@ -39,3 +39,7 @@ turbo.json
 # storybook
 storybook-static
 *storybook.log
+
+# typescript
+*.tsbuildinfo
+dist
