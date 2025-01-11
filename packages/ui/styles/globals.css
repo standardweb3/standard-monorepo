@@ -64,3 +64,59 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-Regular.otf') format('opentype');
+  font-weight: 350;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-RegularItalic.otf') format('opentype');
+  font-weight: 350;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Teodor';
+  src: url('../fonts/Teodor-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
