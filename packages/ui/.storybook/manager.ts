@@ -15,7 +15,7 @@ const theme = create({
   fontCode: 'monospace',
   
   // Brand
-  brandTitle: 'Standard Exchange UI Kit',
+  brandTitle: 'Standard Design System',
   brandUrl: 'https://standardweb3.com',
   brandImage: '/logo.png',
   brandTarget: '_self',
