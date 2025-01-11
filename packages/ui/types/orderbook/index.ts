@@ -15,3 +15,26 @@ export type Orderbook = {
   asks: Tick[];
   lastUpdated: number;
 };
+
+/// Orderbook events from websocket
+export type TickEvent = {
+  id: string;
+  isBid: boolean;
+  orderbook: string;
+  price: number;
+  amount: number;
+  count: number;
+  timestamp: number;
+};
+
+export type MarketPriceEvent = {
+  id: string;
+  price: number;
+  timestamp: number;
+};
+
+export type DeleteTickEvent = {
+  id: string;
+  isBid: boolean;
+  timestamp: number;
+};

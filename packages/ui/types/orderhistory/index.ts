@@ -8,13 +8,11 @@ export type OrderHistory = {
     base: Token;
     quote: Token;
     /// pair string
-    pair: string;
+    symbol: string;
     orderbook: string;
     price: number;
     amount: number;
     timestamp: number;
-    maker: string;
-    taker: string;
     account: string;
     txHash: string;
   };

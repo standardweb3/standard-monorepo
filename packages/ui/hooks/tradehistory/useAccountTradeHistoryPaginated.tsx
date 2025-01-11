@@ -6,25 +6,10 @@ import { fetchUserAccountTradeHistoryPaginatedWithLimit } from 'queries';
 import type {
   TradeHistory,
   AccountTradeHistory,
+  UpdateTradeHistoryEvent,
 } from 'types';
 import io from 'socket.io-client';
 import type { Token } from 'types';
-
-export type UpdateTradeHistoryEvent = {
-  id: string;
-  orderId: number;
-  base: string;
-  quote: string;
-  isBid: number;
-  orderbook: string;
-  price: number;
-  amount: number;
-  taker: string;
-  maker: string;
-  account: string;
-  timestamp: number;
-  txHash: string;
-};
 
 export const useAccountTradeHistoryPaginated = (
   networkName: string,

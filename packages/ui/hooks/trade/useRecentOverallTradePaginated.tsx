@@ -4,24 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { fetchRecentOverallTradesPaginated } from 'queries';
 import { PonderLinks, PonderWssLinks } from 'enums';
 import { io } from 'socket.io-client';
-import type { Token, TradesData } from 'types';
-
-export type UpdateTradeEvent = {
-  id: string;
-  orderId: number;
-  base: string;
-  quote: string;
-  pair: string;
-  isBid: number;
-  price: number;
-  orderbook: string;
-  baseAmount: number;
-  quoteAmount: number;
-  timestamp: number;
-  taker: string;
-  maker: string;
-  txHash: string;
-};
+import type { Token, TradesData, UpdateTradeEvent } from 'types';
 
 export const useRecentOverallTradePaginated = (
   networkName: string,

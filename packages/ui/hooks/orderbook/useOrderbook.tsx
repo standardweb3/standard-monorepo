@@ -3,30 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchOrderbook } from 'queries';
 import { PonderLinks, PonderWssLinks } from '../../enums';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import type { Orderbook } from 'types';
+import type { Orderbook, TickEvent, DeleteTickEvent, MarketPriceEvent } from 'types';
 import io, { type Socket } from 'socket.io-client';
-
-export type TickEvent = {
-  id: string;
-  isBid: boolean;
-  orderbook: string;
-  price: number;
-  amount: number;
-  count: number;
-  timestamp: number;
-};
-
-export type MarketPriceEvent = {
-  id: string;
-  price: number;
-  timestamp: number;
-};
-
-export type DeleteTickEvent = {
-  id: string;
-  isBid: boolean;
-  timestamp: number;
-};
 
 export const useOrderbook = (
   networkName: string,

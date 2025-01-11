@@ -13,8 +13,8 @@ export type Token = {
   ath: number;
   atl: number;
   listingDate: number;
-  dayDifference: number;
-  dayDifferencePercentage: number;
+  dayPriceDifference: number;
+  dayPriceDifferencePercentage: number;
   dayTvl: number;
   dayTvlUSD: number;
   dayVolume: number;
@@ -77,8 +77,8 @@ export type TokenInfo = {
   ath: number;
   atl: number;
   listingDate: number;
-  dayDifference: number;
-  dayDifferencePercentage: number;
+  dayPriceDifference: number;
+  dayPriceDifferencePercentage: number;
   dayTvl: number;
   dayTvlUSD: number;
   dayVolume: number;

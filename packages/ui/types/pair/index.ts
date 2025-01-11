@@ -13,8 +13,8 @@ export type Pair = {
   ath: number;
   atl: number;
   listingDate: number;
-  dayDifference: number;
-  dayDifferencePercentage: number;
+  dayPriceDifference: number;
+  dayPriceDifferencePercentage: number;
   dayBaseVolume: number;
   dayQuoteVolume: number;
   dayBaseVolumeUSD: number;
@@ -31,15 +31,6 @@ export type Pair = {
   totalDayBuckets: number;
   totalWeekBuckets: number;
   totalMonthBuckets: number;
-  count: number;
-  baseVolume: number;
-  quoteVolume: number;
-  baseVolumeUSD: number;
-  quoteVolumeUSD: number;
-  baseTvl: number;
-  quoteTvl: number;
-  baseTvlUSD: number;
-  quoteTvlUSD: number;
 };
 
 export type PairData = {

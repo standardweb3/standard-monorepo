@@ -8,3 +8,4 @@ a project to test Page and UI with isolations to test micro interactions within 
 1. remove `/pages` folder. 
 2. set package name to `@standardweb3/orderbook-kit`.
 3. publish as public.
+4. Set the LICENSE as Apache 2.0.

@@ -1,5 +1,22 @@
 import type { Token } from 'types';
 
+export type UpdateTradeEvent = {
+  id: string;
+  orderId: number;
+  base: string;
+  quote: string;
+  symbol: string;
+  isBid: number;
+  price: number;
+  orderbook: string;
+  baseAmount: number;
+  quoteAmount: number;
+  timestamp: number;
+  taker: string;
+  maker: string;
+  txHash: string;
+};
+
 export type Trade = {
   /// identifier for a trade
   id: string;
@@ -12,7 +29,7 @@ export type Trade = {
   /// quote info
   quote: Token;
   /// pair string
-  pair: string;
+  symbol: string;
   /// order type (bid(buy) if 1, ask(sell) if 0)
   isBid: number;
   /// price in 8 decimals
