@@ -29,22 +29,22 @@ Groups of atoms working together:
 - Price displays (label + value)
 
 ### Organisms
-Complex UI components combining molecules:
+Complex UI components combining molecules, this is the level where state logics from React is included:
 - Order entry forms
 - Price charts
 - Order books
 - Trading pairs selector
 - Navigation bars
+- Modals
 
 ### Templates
-Page-level layouts that arrange organisms:
-- Trading view layout
-- Dashboard layout
-- Settings page layout
-- Portfolio view layout
+Page-level layouts that arrange organisms, each template takes part of a page and has an independent UX to test with:
+- Tradingview Chart Widget
+- Pair Search Featue
+- Limit/Market Order Feature
 
 ### Pages
-Specific instances of templates with real content:
+Specific instances of templates with real content, one page which is shown on browser once deployed:
 - Spot trading page
 - User portfolio page
 - Market overview page
