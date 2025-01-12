@@ -19,7 +19,7 @@ export function ThemeColor() {
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             <ColorTheme title="Theme Neon Green" colors={neonGreenColors} hexes={neonGreenHexes}/>
-            <ColorTheme title="Theme Red" colors={redColors} hexes={redHexes}/>
+            <ColorTheme title="Theme Green" colors={redColors} hexes={redHexes}/>
             <ColorTheme title="Theme Green" colors={greenColors} hexes={greenHexes}/>
             <ColorTheme title="Theme Orange" colors={orangeColors} hexes={orangeHexes}/>
           </div>
