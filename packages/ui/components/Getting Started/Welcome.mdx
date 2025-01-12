@@ -14,7 +14,9 @@ This is a UI library for Standard Exchange. Our library provides a set of reusab
 Our UI components follow Atomic Design principles, organizing elements from smallest to largest:
 
 ### Atoms
+
 The smallest building blocks of our interface:
+
 - Buttons
 - Input fields
 - Labels
@@ -22,14 +24,18 @@ The smallest building blocks of our interface:
 - Typography elements
 
 ### Molecules
+
 Groups of atoms working together:
+
 - Search bars (input + button)
 - Form fields (label + input)
 - Menu items (icon + text)
 - Price displays (label + value)
 
 ### Organisms
+
 Complex UI components combining molecules, this is the level where state logics from React hooks are included. Tests for hook state managements are done with:
+
 - Order entry forms
 - Price charts
 - Order books
@@ -38,13 +44,17 @@ Complex UI components combining molecules, this is the level where state logics 
 - Modals
 
 ### Features
+
 Page-level layouts that arrange organisms, each template takes part of a page and has a UX to test with:
+
 - Tradingview Chart Feature
 - Pair Search Feature
 - Limit/Market Order Feature
 
 ### Pages
+
 Specific instances of templates with real content, one page which is shown on browser once deployed:
+
 - Spot trading page
 - User portfolio page
 - Market overview page
@@ -55,24 +65,28 @@ Specific instances of templates with real content, one page which is shown on br
 To get started with the Standard Orderbook Kit, follow the instructions below:
 
 1. **Installation**: Install the library using pnpm or yarn.
+
    ```sh
    pnpm install @standardweb3/orderbook-kit
    # or
    yarn add @standardweb3/orderbook-kit
 
-2. **Usage**: Import the components you need into your project.
-    ```javascript
-    import { Button, Card } from '@standardweb3/orderbook-kit';
+   ```
 
-    const App = () => (
+2. **Usage**: Import the components you need into your project.
+
+   ```javascript
+   import { Button, Card } from '@standardweb3/orderbook-kit';
+
+   const App = () => (
      <div>
        <Button>Click Me</Button>
        <Card title="Card Title">Card Content</Card>
      </div>
-    );
+   );
 
-    export default App;
-    ```
+   export default App;
+   ```
 
 ## Documentation
 
