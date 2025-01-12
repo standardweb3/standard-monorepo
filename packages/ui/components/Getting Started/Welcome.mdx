@@ -9,6 +9,47 @@ This is a UI library for Standard Exchange. Our library provides a set of reusab
 - **Responsive Design**: Components are designed to be responsive and work on various screen sizes.
 - **Accessibility**: Built with accessibility in mind to ensure a great experience for all users.
 
+## Design System Architecture
+
+Our UI components follow Atomic Design principles, organizing elements from smallest to largest:
+
+### Atoms
+The smallest building blocks of our interface:
+- Buttons
+- Input fields
+- Labels
+- Icons
+- Typography elements
+
+### Molecules
+Groups of atoms working together:
+- Search bars (input + button)
+- Form fields (label + input)
+- Menu items (icon + text)
+- Price displays (label + value)
+
+### Organisms
+Complex UI components combining molecules:
+- Order entry forms
+- Price charts
+- Order books
+- Trading pairs selector
+- Navigation bars
+
+### Templates
+Page-level layouts that arrange organisms:
+- Trading view layout
+- Dashboard layout
+- Settings page layout
+- Portfolio view layout
+
+### Pages
+Specific instances of templates with real content:
+- Spot trading page
+- User portfolio page
+- Market overview page
+- Order history page
+
 ## Getting Started
 
 To get started with the Standard Orderbook Kit, follow the instructions below:
@@ -32,6 +73,7 @@ To get started with the Standard Orderbook Kit, follow the instructions below:
 
     export default App;
     ```
+
 ## Documentation
 
 For detailed documentation and examples, please visit our [documentation site](https://docs.standardweb3.com).
