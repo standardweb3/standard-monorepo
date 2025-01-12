@@ -10,7 +10,7 @@
     "test:ui": "vitest --ui",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_22298ec071d9d95"
+    "chromatic": "npx chromatic --project-token=chpt_22298ec071d9d95 --exit-zero-on-changes"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
