@@ -6081,6 +6081,11 @@ chromatic@^11.15.0:
   resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.22.1.tgz#8d18540632447d1f0a4adec55eb9a82a3b42a412"
   integrity sha512-GQP+xE00YDYuxVA4F7n5l1+hPWZC5xBgzFanKRfSbBgx4j2ZEbXa53C7fdkxMNplQR546nFIyhnoFRUB8ljIQg==
 
+chromatic@^11.22.2:
+  version "11.22.2"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.22.2.tgz#e0bb593e5dd5d5c9a050fe76cb0d621138990537"
+  integrity sha512-Z7+9hD1yp1fUm34XX1wojIco0lQlXOVYhzDSE8v1ZU6qLD2r4N6UHKD+N+XY1Jj+gpsDFWYMTpSnDfcHZf5mhg==
+
 chrome-launcher@^0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/chrome-launcher/-/chrome-launcher-0.15.2.tgz#4e6404e32200095fdce7f6a1e1004f9bd36fa5da"
