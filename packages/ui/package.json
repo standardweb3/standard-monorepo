@@ -57,7 +57,7 @@
   "dependencies": {
     "@dynamic-labs/ethereum": "^3.9.2",
     "@dynamic-labs/sdk-react-core": "^3.9.2",
-    "@dynamic-labs/wagmi-connector": "^3.9.2",
+    "@dynamic-labs/wagmi-connector": "^4.9.0",
     "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.1",
     "@number-flow/react": "^0.5.1",
