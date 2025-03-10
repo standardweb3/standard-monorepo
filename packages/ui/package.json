@@ -76,7 +76,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.0",
     "recharts": "^2.13.3",
-    "tailwind-merge": "^2.5.5",
+    "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.6",
     "viem": "^2.21.55",
     "wagmi": "^2.14.3",
