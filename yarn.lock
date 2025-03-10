@@ -985,10 +985,10 @@
     eventemitter3 "5.0.1"
     tldts "6.0.16"
 
-"@dynamic-labs/wagmi-connector@^3.9.2":
-  version "3.9.7"
-  resolved "https://registry.yarnpkg.com/@dynamic-labs/wagmi-connector/-/wagmi-connector-3.9.7.tgz#644c6aab9b28ee8e3cac0e39b4621c4db781bd77"
-  integrity sha512-mLQ5EMwEIMV67BtxZAQbZGO9cO2VqKtIJaswdQ64oPSc5/TmCn3YZcXxcEHww+8WmzKQ6j0aoBNbvi5kOrdH0w==
+"@dynamic-labs/wagmi-connector@^4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@dynamic-labs/wagmi-connector/-/wagmi-connector-4.9.0.tgz#642973f4c589fb0fffe46d4f939f7614f0ccc237"
+  integrity sha512-xcYwlWH/XE6UE+nOxK/Rak77fRzTZ0yZtgcl8oULd50FZavrcpq0zHZt9XlTa2zZZLFbgRf/mZriN9Dmsa7AOQ==
 
 "@dynamic-labs/wallet-book@3.9.7":
   version "3.9.7"
